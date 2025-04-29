@@ -1,0 +1,126 @@
+/* App.css */
+
+/* --- Fixed Transparent Blurred Header --- */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(255, 255, 255, 0.75); /* semi-transparent */
+  backdrop-filter: blur(10px); /* blur effect */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+/* --- Title Styling --- */
+.app-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2c3e50;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- Main Content Area (accounting for fixed header height) --- */
+.app-main {
+  padding: 100px 40px 40px; /* top padding to avoid overlap with fixed header */
+}
+
+/* --- Portfolio Button Styling --- */
+.portfolio-button {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #4a6fa5, #23d5ab);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.portfolio-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #5a7fb5, #33e5bb);
+}
+
+.portfolio-icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+/* --- Back Button Styling --- */
+.question-details__back-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #4a6fa5;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.question-details__back-btn:hover {
+  color: #2c3e50;
+  text-decoration: underline;
+}
+
+/* --- Dark Mode Support --- */
+.dark-mode .app-header {
+  background: rgba(30, 30, 30, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .portfolio-button {
+  background: linear-gradient(135deg, #2c3e50, #1a977b);
+}
+
+.dark-mode .portfolio-button:hover {
+  background: linear-gradient(135deg, #3c4e60, #2aa78b);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px 20px;
+  }
+
+  .app-main {
+    padding: 120px 20px 40px;
+  }
+
+  .portfolio-button {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+
+  .portfolio-icon {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-button {
+    padding: 7px 12px;
+  }
+
+  .portfolio-text {
+    display: none;
+  }
+
+  .portfolio-icon {
+    margin-right: 0;
+  }
+}

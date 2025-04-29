@@ -1,0 +1,149 @@
+.card-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  width: 90%;
+  height:90%;
+  max-width: 800px;
+  margin: 40px auto;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border: 2px solid #4CAF50;
+}
+
+.card-container h2 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #66bb6a;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: #f5fff5;
+  color: #333333;
+}
+
+form select {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+  font-weight: 500;
+  appearance: menulist;
+  padding-right: 25px;
+}
+
+form input[type="text"]:focus,
+form select:focus,
+form textarea:focus {
+  outline: none;
+  border-color: #2e7d32;
+  box-shadow: 0 0 5px rgba(46, 125, 50, 0.5);
+}
+
+form select option {
+  background-color: #ffffff;
+  color: #1b5e20;
+  padding: 8px;
+}
+
+form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.question-container {
+  background-color: #f9fbe7;
+  padding: 20px;
+  border: 1px solid #c5e1a5;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+button[type="button"],
+button[type="submit"],
+.remove-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button[type="button"]:hover,
+button[type="submit"]:hover,
+.remove-btn:hover {
+  background-color: #2e7d32;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"] {
+  background-color: #2196F3;
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0d47a1;
+}
+
+.remove-btn {
+  background-color: #ff5252;
+}
+
+.remove-btn:hover {
+  background-color: #d32f2f;
+}
+
+.message {
+  text-align: center;
+  color: #2ecc71;
+  font-size: 18px;
+  margin-bottom: 20px;
+  background-color: #e8f5e9;
+  padding: 10px;
+  border-radius: 5px;
+  border-left: 4px solid #2ecc71;
+}
+
+.card-content p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.card-content strong {
+  font-weight: bold;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(76, 175, 80, 0), rgba(76, 175, 80, 0.75), rgba(76, 175, 80, 0));
+  margin: 20px 0;
+}

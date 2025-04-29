@@ -1,0 +1,400 @@
+import Question from '../models/question.js';  // Use ES6 import for the Question model
+
+// Create a new question
+export const createQuestion = async (req, res) => {
+  try {
+    const { question, answer, company, questionType, difficulty } = req.body;
+
+    if (!question || !answer || !company || !questionType || !difficulty) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    const newQuestion = new Question({ question, answer, company, questionType, difficulty });
+    const savedQuestion = await newQuestion.save();
+    res.status(201).json(savedQuestion);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Get all questions
+export const getQuestions = async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.status(200).json(questions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// Get a specific question by its ID
+export const getQuestionById = async (req, res) => {
+  const { id } = req.params;  // Get the ID from the URL params
+  try {
+    const question = await Question.findById(id);
+    if (!question) {
+      return res.status(404).json({ error: 'Question not found' });
+    }
+    res.status(200).json(question);  // Send the question details
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+import express from 'express';  // Use ES6 import for express
+import { getQuestions, createQuestion, getQuestionById } from '../controller/questioncontroller.js';  // Import controller functions
+
+const router = express.Router();
+
+// GET /questions - fetch all questions
+router.get('/', getQuestions);
+
+// POST /questions - create a new question
+router.post('/', createQuestion);
+
+// GET /questions/:id - fetch a specific question by its ID
+router.get('/:id', getQuestionById);  // New endpoint for fetching a single question
+
+export default router;  // Use ES6 export
+
+
+
+
+
+
+
+
+import React, { useState } from "react";
+import "../styles/question.css";
+import { postQuestion } from "../api";  // Ensure correct API function import
+
+function AddQuestion() {
+  const [company, setCompany] = useState("");
+  const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [questions, setQuestions] = useState([{ question: "", answer: "", errors: {} }]);
+  const [message, setMessage] = useState("");
+
+  const validateFields = () => {
+    let isValid = true;
+    const updatedQuestions = questions.map((q) => {
+      const errors = {};
+      if (q.question.trim() === "") {
+        errors.question = "Please enter a question.";
+        isValid = false;
+      }
+      if (q.answer.trim() === "") {
+        errors.answer = "Please enter an answer.";
+        isValid = false;
+      }
+      return { ...q, errors };
+    });
+    setQuestions(updatedQuestions);
+    return isValid;
+  };
+
+  const handleAddQuestionBlock = () => {
+    if (!validateFields()) return;
+    setQuestions([...questions, { question: "", answer: "", errors: {} }]);
+    setMessage("");
+  };
+
+  const handleRemoveQuestionBlock = (index) => {
+    const updated = [...questions];
+    updated.splice(index, 1);
+    setQuestions(updated);
+  };
+
+  const handleChange = (index, field, value) => {
+    const updated = [...questions];
+    updated[index][field] = value;
+    if (updated[index].errors) updated[index].errors[field] = "";
+    setQuestions(updated);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateFields()) return;
+
+    try {
+      for (let q of questions) {
+        const questionData = {
+          company,
+          questionType: category, // Use questionType instead of category
+          difficulty,
+          question: q.question,
+          answer: q.answer,
+        };
+        await postQuestion(questionData);
+      }
+      setMessage("Hurray ! Questions added successfully!");
+      setCompany("");
+      setCategory("");
+      setDifficulty("");
+      setQuestions([{ question: "", answer: "", errors: {} }]);
+    } catch (err) {
+      console.error("Error adding questions", err);
+      setMessage("Please ensure all fields are filled and try again.");
+    }
+  };
+
+  return (
+    <div className="add-question-container">
+      <h3>Awesome job! You're building a powerhouse of prep — keep that momentum alive!</h3>
+      {message && <p className="submit-message">{message}</p>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter company name"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
+        <br />
+        <label htmlFor="category"></label>
+        <select
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        >
+          <option value="">Select Category</option>
+          <option value="Hr">HR</option>
+          <option value="Tr">Technical</option>
+          <option value="Mr">Managerial</option>
+          <option value="">Other</option>
+        </select>
+        <br />
+        <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
+          <option value="">Select difficulty</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+        <br />
+
+        {questions.map((q, index) => (
+          <div key={index} className="question-block">
+            <textarea
+              placeholder={`Enter question ${index + 1}`}
+              value={q.question}
+              onChange={(e) => handleChange(index, "question", e.target.value)}
+            ></textarea>
+            {q.errors.question && <p className="error">{q.errors.question}</p>}
+            <br />
+            <textarea
+              placeholder={`Enter answer ${index + 1}`}
+              value={q.answer}
+              onChange={(e) => handleChange(index, "answer", e.target.value)}
+            ></textarea>
+            {q.errors.answer && <p className="error">{q.errors.answer}</p>}
+            <br />
+            {questions.length > 1 && (
+              <button type="button" className="remove-btn" onClick={() => handleRemoveQuestionBlock(index)}>
+                Remove This Question
+              </button>
+            )}
+            <hr />
+          </div>
+        ))}
+
+        <button type="button" onClick={handleAddQuestionBlock}>
+          + Add Question
+        </button>
+        <br />
+        <button type="submit">Submit All</button>
+      </form>
+    </div>
+  );
+}
+
+export default AddQuestion;
+
+
+
+
+
+import React, { useEffect, useState } from "react";
+import { fetchQuestions } from "../api";  // assuming you have API utility
+import { Link } from "react-router-dom";
+import "../styles/Home.css";
+
+function Home() {
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    const fetchAllQuestions = async () => {
+      try {
+        const res = await fetchQuestions();
+        console.log("Fetched questions:", res);
+
+        if (res && Array.isArray(res.data)) {
+          setQuestions(res.data);
+        } else {
+          console.warn("No valid data received");
+          setQuestions([]);
+        }
+      } catch (err) {
+        console.error("Error fetching questions:", err);
+        setQuestions([]);
+      }
+    };
+
+    fetchAllQuestions();
+  }, []);
+
+  return (
+    <div className="main-container">
+      <div className="image-left"></div>
+
+      <div className="container">
+        {Array.isArray(questions) && questions.length > 0 ? (
+          questions.map((q) => (
+            <Link to={`/question/${q._id}`} key={q._id} className="card">
+              <p><strong>Company:</strong> {q.company || "Unknown"}</p>
+              <p><strong>Category:</strong> {q.questionType || "General"}</p>
+              <p><strong>Difficulty:</strong> {q.difficulty || "Medium"}</p>
+            </Link>
+          ))
+        ) : (
+          <p className="no-questions-message">No questions available. Add one!</p>
+        )}
+
+        {/* Add New Preparation */}
+        <Link to="/add" className="card add-card">
+          <p>➕ Add New Preparation</p>
+        </Link>
+      </div>
+
+      <div className="image-right"></div>
+    </div>
+  );
+}
+
+export default Home;
+
+
+
+
+import express from "express";
+import cors from "cors";  // Import cors
+import connectDB from "./config/db.js"; // Import DB connection
+import questionRoutes from "./routes/questions.js"; // Use import instead of require
+
+const app = express(); // Declare app before using it
+
+connectDB(); // Connect to MongoDB
+
+app.use(cors()); // Enable CORS for all routes (allows requests from any origin)
+
+app.use(express.json()); // Middleware to parse JSON
+app.use('/api/questions', questionRoutes); // Setup routes for questions
+
+app.get("/", (req, res) => {
+    res.send("Backend is running!");
+});
+
+app.listen(5000, () => console.log("✅ Server running on port 5000"));
+\\\\\\\\\\
+
+
+import mongoose from 'mongoose';  // Use ES6 import for mongoose
+
+const questionSchema = new mongoose.Schema({
+  company: {
+    type: String,
+    required: true
+  },
+  questionType: {
+    type: String,
+    enum: ['Technical', 'Aptitude', 'HR', 'General'],
+    required: false
+  }, difficulty: {
+    type: String,
+    enum: ['Easy', 'Medium', 'Hard'], // You can restrict difficulty to these values
+    required: true
+  },
+  question: {
+    type: String,
+    required: true
+  },
+  answer: {
+    type: String,
+    required: true
+  }
+});
+
+export default mongoose.model('Question', questionSchema);  // Use ES6 export
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState } from "react";
+import "../styles/Card.css";
+import { postQuestion } from "../api";
+import { v4 as uuidv4 } from 'uuid'; // You'll need to install this package
+
+function AddQuestion() {
+  const [company, setCompany] = useState("");
+  const [questionType, setQuestionType] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [questions, setQuestions] = useState([{ question: "", answer: "", errors: {} }]);
+  const [message, setMessage] = useState("");
+
+  // Other functions remain the same...
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateFields()) return;
+
+    try {
+      // Generate a single submissionId for all questions in this form
+      const submissionId = uuidv4();
+      
+      for (let q of questions) {
+        const questionData = {
+          company,
+          questionType,
+          difficulty,
+          question: q.question,
+          answer: q.answer,
+          submissionId // Add the submissionId to each question
+        };
+        await postQuestion(questionData);
+      }
+      setMessage("Hurray! Questions added successfully!");
+      setCompany("");
+      setQuestionType("");
+      setDifficulty("");
+      setQuestions([{ question: "", answer: "", errors: {} }]);
+    } catch (err) {
+      console.error("Error adding questions", err);
+      setMessage("Please ensure all fields are filled and try again.");
+    }
+  };
+
+  // Return JSX remains the same...
+}
+
+export default AddQuestion;

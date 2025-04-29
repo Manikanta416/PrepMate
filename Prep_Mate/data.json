@@ -1,0 +1,243 @@
+[
+    {
+      "company": "Google",
+      "questionType": "Technical",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "What is a binary search?",
+          "answer": "Binary search splits the array and searches the appropriate half."
+        },
+        {
+          "question": "Explain time complexity of merge sort.",
+          "answer": "Merge sort has time complexity of O(n log n)."
+        }
+      ]
+    },
+    {
+      "company": "Google",
+      "questionType": "Aptitude",
+      "difficulty": "Hard",
+      "questions": [
+        {
+          "question": "If a train travels 60 miles per hour for 3 hours, how far will it travel?",
+          "answer": "The train will travel 180 miles."
+        },
+        {
+          "question": "What is the probability of drawing an ace from a deck of cards?",
+          "answer": "The probability is 4/52 or 1/13."
+        }
+      ]
+    },
+    {
+      "company": "Microsoft",
+      "questionType": "System Design",
+      "difficulty": "Hard",
+      "questions": [
+        {
+          "question": "How would you design a scalable chat application?",
+          "answer": "Use a client-server model with WebSockets, load balancing, and database sharding."
+        },
+        {
+          "question": "Explain CAP theorem in distributed systems.",
+          "answer": "CAP theorem states that a distributed system can only guarantee two of the three properties: Consistency, Availability, and Partition tolerance."
+        }
+      ]
+    },
+    {
+      "company": "Microsoft",
+      "questionType": "Behavioral",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "Tell us about a time when you handled a conflict in a team.",
+          "answer": "I resolved the conflict by encouraging open communication and proposing a compromise."
+        },
+        {
+          "question": "How do you prioritize tasks in a fast-paced environment?",
+          "answer": "I prioritize tasks based on deadlines and importance, using a task management system."
+        }
+      ]
+    },
+    {
+      "company": "Amazon",
+      "questionType": "Technical",
+      "difficulty": "Easy",
+      "questions": [
+        {
+          "question": "What is a stack data structure?",
+          "answer": "A stack follows the Last In, First Out (LIFO) principle, where the last element added is the first to be removed."
+        },
+        {
+          "question": "What are the differences between a list and a tuple in Python?",
+          "answer": "A list is mutable, while a tuple is immutable."
+        }
+      ]
+    },
+    {
+      "company": "Amazon",
+      "questionType": "Aptitude",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "A person buys a shirt for $50 and sells it for $60. What is the profit percentage?",
+          "answer": "The profit percentage is 20%."
+        },
+        {
+          "question": "How many combinations can be made from 3 objects chosen from 5?",
+          "answer": "The number of combinations is 10."
+        }
+      ]
+    },
+    {
+      "company": "Apple",
+      "questionType": "HR",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "Why do you want to work at Apple?",
+          "answer": "I admire Apple's commitment to innovation and its culture of excellence."
+        },
+        {
+          "question": "How do you handle stressful situations?",
+          "answer": "I remain calm, prioritize tasks, and break them down into manageable steps."
+        }
+      ]
+    },
+    {
+      "company": "Apple",
+      "questionType": "Technical",
+      "difficulty": "Hard",
+      "questions": [
+        {
+          "question": "Explain the concept of memory management in iOS.",
+          "answer": "iOS uses Automatic Reference Counting (ARC) for memory management to track the ownership of objects."
+        },
+        {
+          "question": "What is the difference between strong and weak references in Swift?",
+          "answer": "Strong references prevent objects from being deallocated, while weak references allow the object to be deallocated."
+        }
+      ]
+    },
+    {
+      "company": "Facebook",
+      "questionType": "Behavioral",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "Describe a challenging project you worked on and how you overcame difficulties.",
+          "answer": "I worked on a project with tight deadlines, and I overcame difficulties by collaborating closely with my team."
+        },
+        {
+          "question": "How do you manage multiple deadlines?",
+          "answer": "I prioritize tasks, create a timeline, and communicate with stakeholders to set expectations."
+        }
+      ]
+    },
+    {
+      "company": "Facebook",
+      "questionType": "Technical",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "What is the difference between a deep copy and a shallow copy?",
+          "answer": "A deep copy duplicates objects and their references, while a shallow copy only duplicates the outer object."
+        },
+        {
+          "question": "Explain the concept of polymorphism in object-oriented programming.",
+          "answer": "Polymorphism allows different objects to be treated as instances of the same class through inheritance or interfaces."
+        }
+      ]
+    },
+    {
+      "company": "Netflix",
+      "questionType": "System Design",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "How would you design a video streaming service?",
+          "answer": "Use a distributed network of servers for video delivery, implement adaptive bitrate streaming, and ensure a scalable backend."
+        },
+        {
+          "question": "How would you handle large amounts of user data in a social media app?",
+          "answer": "Use cloud storage, partition data across databases, and ensure efficient indexing and querying."
+        }
+      ]
+    },
+    {
+      "company": "Netflix",
+      "questionType": "Aptitude",
+      "difficulty": "Hard",
+      "questions": [
+        {
+          "question": "If 5 workers can complete a task in 10 days, how long will it take 8 workers?",
+          "answer": "It will take 6.25 days for 8 workers to complete the task."
+        },
+        {
+          "question": "What is the sum of the first 100 prime numbers?",
+          "answer": "The sum of the first 100 prime numbers is 24133."
+        }
+      ]
+    },
+    {
+      "company": "Uber",
+      "questionType": "Technical",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "What is the difference between a thread and a process?",
+          "answer": "A thread is a lightweight subunit of a process that shares memory with other threads, while a process is an independent unit with its own memory."
+        },
+        {
+          "question": "Explain what is deadlock and how to avoid it.",
+          "answer": "A deadlock is a situation where two or more processes are blocked forever, waiting for each other. It can be avoided by using timeouts or resource allocation algorithms."
+        }
+      ]
+    },
+    {
+      "company": "Uber",
+      "questionType": "HR",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "What motivates you in your work?",
+          "answer": "I am motivated by solving complex problems and contributing to impactful projects."
+        },
+        {
+          "question": "How do you handle feedback from supervisors?",
+          "answer": "I view feedback as an opportunity for growth and strive to implement it in my work."
+        }
+      ]
+    },
+    {
+      "company": "Twitter",
+      "questionType": "Technical",
+      "difficulty": "Hard",
+      "questions": [
+        {
+          "question": "How would you implement rate-limiting for an API?",
+          "answer": "Rate-limiting can be implemented using a token bucket algorithm or a leaky bucket algorithm."
+        },
+        {
+          "question": "What is the difference between a REST API and a GraphQL API?",
+          "answer": "A REST API uses predefined endpoints, while GraphQL allows clients to specify the structure of the response."
+        }
+      ]
+    },
+    {
+      "company": "Twitter",
+      "questionType": "Behavioral",
+      "difficulty": "Medium",
+      "questions": [
+        {
+          "question": "Tell us about a time when you had to work with a difficult team member.",
+          "answer": "I focused on active listening and tried to understand their perspective while working towards a common goal."
+        },
+        {
+          "question": "How do you deal with tight deadlines?",
+          "answer": "I break down tasks into manageable steps and prioritize to ensure deadlines are met."
+        }
+      ]
+    }
+  ]
+  
