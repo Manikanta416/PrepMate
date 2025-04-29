@@ -38,7 +38,7 @@ const Purpose = () => {
     <div className={`purpose-container ${darkMode ? 'dark-mode' : ''}`}>
       <header className="purpose-header animate">
         <div className="logo-container">
-          <div className="logo">PrepMate</div>
+          <div className="logo">Prepate</div>
           <div className="logo-tagline">Your Interview Preparation Companion</div>
         </div>
         <div className="theme-toggle">
