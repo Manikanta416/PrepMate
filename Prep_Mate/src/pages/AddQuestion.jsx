@@ -10,6 +10,7 @@ function AddQuestion() {
   const [difficulty, setDifficulty] = useState("");
   const [questions, setQuestions] = useState([{ question: "", answer: "", errors: {} }]);
   const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const validateFields = () => {
@@ -64,28 +65,33 @@ function AddQuestion() {
     if (!validateFields()) return;
 
     try {
-      const submissionId = uuidv4();
+      setIsSubmitting(true);
       
-      for (let q of questions) {
-        const questionData = {
-          company,
-          questionType,
-          difficulty,
+      // Format the data according to the backend's expected structure
+      const questionData = {
+        company,
+        questionType,
+        difficulty,
+        questions: questions.map(q => ({
           question: q.question,
-          answer: q.answer,
-          submissionId
-        };
-        await postQuestion(questionData);
-      }
+          answer: q.answer
+        }))
+      };
+
+      // Send a single request with all questions instead of multiple requests
+      await postQuestion(questionData);
+      
       setMessage("Hurray! Questions added successfully!");
 
-      // Navigate to home directly after submission
+      // Navigate to home after submission
       setTimeout(() => {
         navigate('/home');
-      }, 1500); // reduced time a little for better UX
+      }, 1500);
     } catch (err) {
       console.error("Error adding questions", err);
-      setMessage("Please ensure all fields are filled and try again.");
+      setMessage("Failed to submit questions. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -182,11 +188,11 @@ function AddQuestion() {
               Add Another Question
             </button>
             
-            {/* Display success message above the submit button */}
-            {message && <div className="message">{message}</div>}
+            {/* Display message above the submit button */}
+            {message && <div className={message.includes("Hurray") ? "success-message" : "error-message"}>{message}</div>}
             
-            <button type="submit" className="submit-btn">
-              Submit All Questions
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit All Questions"}
             </button>
           </div>
         </form>

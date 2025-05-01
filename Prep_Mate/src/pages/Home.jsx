@@ -7,6 +7,26 @@ function Home() {
   const [questions, setQuestions] = useState([]);
   const [groupedQuestions, setGroupedQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('darkMode');
+    return savedTheme ? JSON.parse(savedTheme) : false;
+  });
+
+  // Toggle dark mode function
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    // Save preference to localStorage
+    localStorage.setItem('darkMode', JSON.stringify(!darkMode));
+  };
+
+  // Apply dark mode class to body when component mounts or when darkMode changes
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     const fetchAllQuestions = async () => {
@@ -89,7 +109,23 @@ function Home() {
   };
 
   return (
-    <div className="home-page">
+    <div className={`home-page ${darkMode ? 'dark-mode' : ''}`}>
+      {/* Global Navbar */}
+      <div className="global-navbar">
+        <div className="navbar-logo">
+          <span className="logo-text">PrepMate</span>
+          <span className="logo-tagline">Your Interview Preparation Companion</span>
+        </div>
+        <div className="navbar-links">
+          <Link to="/home" className="nav-link active">Dashboard</Link>
+          <Link to="/purpose" className="nav-link">About</Link>
+          <Link to="/portfolio" className="nav-link">Portfolio</Link>
+          <button onClick={toggleDarkMode} className="theme-toggle-btn">
+            {darkMode ? '☀️ Light' : '🌙 Dark'}
+          </button>
+        </div>
+      </div>
+
       <div className="header-container">
         <h1 className="home-title">PrepMate Dashboard</h1>
         <p className="home-subtitle">Your Interview Preparation Hub</p>
