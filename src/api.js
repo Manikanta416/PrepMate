@@ -9,4 +9,3 @@ export const fetchQuestionDetails = (id) => API.get(`/questions/${id}`); // Adde
 export const postQuestion = (data) => API.post("/questions", data);
 
 export default API;
-https://backend-api-frmn.onrender.com/
